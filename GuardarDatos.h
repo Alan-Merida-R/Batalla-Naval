@@ -1,3 +1,4 @@
+//Biblioteca para el manejo de archivos
 #include<stdio.h>
 #include<string.h>
 #include <math.h>
