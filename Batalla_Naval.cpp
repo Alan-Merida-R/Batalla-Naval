@@ -11,15 +11,9 @@ void AltEnter();
 
 
 main(){
+
 	login();
-
-
-
 	aniInicial();
-
-
-
-
 }
 
 
