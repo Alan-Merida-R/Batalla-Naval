@@ -2,14 +2,13 @@
 #include<stdio.h>
 #include<string.h>
 #include <stdlib.h>
-
+#include "Archivos\ImprecionCompleta.cpp"
 int main()
 {
-	printf("");
-	gets(Variable);
-	//fgets(variable, 2000, stdin);
-	//scanf("%",&);
-	setbuf(stdin, NULL);
-	fflush(stdin);
+	system("dir");
+	system("cd Archivos\Graficos");
+	system("dir");
+	system("more Soldado.txt");
+	imprimirArchivoCompleto("Soldado.txt");
 	return 0;
 }
