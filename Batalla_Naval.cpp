@@ -3,32 +3,22 @@
 #include <conio.h>
 #include <stdlib.h> // Librería para la función system("clear")
 #include <unistd.h> // Librería para la función sleep()
-
+#include <windows.h>//Libreria para el color
 void login();
 void aniInicial();
 void aniAhorcado();
 void AltEnter();
 
-
-main(){
-	login();
-
-
-
-	aniInicial();
-
-
-
-
-}
-
-
 void login(){
 char user[10], pass[10];
-	system("COLOR C");
-	printf("\t\t\t\t\t_________________________\n");
-	printf("\t\t\t\t\t|\tBienvenido!      |\n");
-	printf("\t\t\t\t\t-------------------------\n\n");	
+	
+	system("cls");
+	printf("\033[0;31m"); 	printf("\t\t\t\t\t_________________________\n"); 
+	printf("\t\t\t\t\t| \t"); 	printf("\033[0m");
+	printf("Bienvenido!      ");
+	printf("\033[0;31m"); 	printf("|\n");
+	printf("\t\t\t\t\t-------------------------\n\n");	printf("\033[0m");	
+
 	printf("\t\t\t\t\tAntes de empezar crea tu usuario\n\n");
 	//metan el gestor de archivos aqui para que cree un archivo de guardado xfas
 	//Pongan un IF de que si ya hay un archivo existente obtenga el nombre del usuario con el puntaje maximo guardado
@@ -40,9 +30,13 @@ char user[10], pass[10];
     gets(user);
     system("CLS");
  
- 	printf("\t\t\t\t\t_________________________\n");
-	printf("\t\t\t\t\t|\tBienvenido!      |\n");
-	printf("\t\t\t\t\t-------------------------\n");  
+	system("cls");
+	printf("\033[0;31m"); 	printf("\t\t\t\t\t_________________________\n"); 
+	printf("\t\t\t\t\t| \t"); 	printf("\033[0m");
+	printf("Bienvenido!      ");
+	printf("\033[0;31m"); 	printf("|\n");
+	printf("\t\t\t\t\t-------------------------\n\n");	printf("\033[0m");	
+
     printf("\n\t\t\t\t\tPorfavor ingresa tu Password: \n"); 
 	printf("\t\t\t\t\tUsuario: "); puts(user); printf("\n");
 	printf("\t\t\t\t\tPassword: "); 
@@ -52,12 +46,16 @@ char user[10], pass[10];
 	//y poner una condicion para que se ingresen el valor 
 	
 	//alerta de datos incorectos
-	printf("\t\t\t\t\t__________________________________\n");
-	printf("\t\t\t\t\t|\tUn error ah ocurrido      |\n");
-	printf("\t\t\t\t\t----------------------------------\n\n");	
-	printf("\t\t\t\t\tLos datos introducidos no son validos\n\n");
+	system("cls");
+	printf("\033[0;31m"); 	printf("\t\t\t\t\t________________________________\n"); 
+	printf("\t\t\t\t\t|\t"); 	
+	printf(" ERROR ENCONTRADO\t|\n\t\t\t\t\t|\tUsuario incorrecto\t|\n\t\t\t\t\t|\t\tO\t\t|\n\t\t\t\t\t|\tPassword incorrecto\t|\n");
 	
 	
+	printf("\t\t\t\t\t---------------------------------\n\n");	printf("\033[0m");	
+
+	
+	//Si todo es correcto
 	printf("\n\t\t\t\t\tPerfecto! Es hora de empezar el juego!!\n");		
 	sleep(3);
 	system("CLS");
