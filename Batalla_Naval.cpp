@@ -9,15 +9,21 @@ void aniInicial();
 void aniAhorcado();
 void AltEnter();
 
+int main(){
+	login();
+}
+
 void login(){
 char user[10], pass[10];
-	
+	/*
 	system("cls");
-	printf("\033[0;31m"); 	printf("\t\t\t\t\t_________________________\n"); 
-	printf("\t\t\t\t\t| \t"); 	printf("\033[0m");
+	printf("\033[0;31m"); 	//Iniciamos color ROJO
+	printf("\t\t\t\t\t%c",201);  for(int p=0; p<24; p++){printf("%c",205);} printf("%c\n",187); printf("\t\t\t\t\t%c \t",186); //Parte de arriba del recuadro
+		printf("\033[0m"); //Iniciamos color Blanco
 	printf("Bienvenido!      ");
-	printf("\033[0;31m"); 	printf("|\n");
-	printf("\t\t\t\t\t-------------------------\n\n");	printf("\033[0m");	
+	printf("\033[0;31m"); printf("%c\n",186); 
+	printf("\t\t\t\t\t%c",200);  for(int p=0; p<24; p++){printf("%c",205);} printf("%c\n",188);	 //Parte de abajo del recuadro 
+	printf("\033[0m");	
 
 	printf("\t\t\t\t\tAntes de empezar crea tu usuario\n\n");
 	//metan el gestor de archivos aqui para que cree un archivo de guardado xfas
@@ -31,11 +37,13 @@ char user[10], pass[10];
     system("CLS");
  
 	system("cls");
-	printf("\033[0;31m"); 	printf("\t\t\t\t\t_________________________\n"); 
-	printf("\t\t\t\t\t| \t"); 	printf("\033[0m");
+	printf("\033[0;31m"); 	//Iniciamos color ROJO
+	printf("\t\t\t\t\t%c",201);  for(int p=0; p<24; p++){printf("%c",205);} printf("%c\n",187); printf("\t\t\t\t\t%c \t",186); //Parte de arriba del recuadro
+		printf("\033[0m"); //Iniciamos color Blanco
 	printf("Bienvenido!      ");
-	printf("\033[0;31m"); 	printf("|\n");
-	printf("\t\t\t\t\t-------------------------\n\n");	printf("\033[0m");	
+	printf("\033[0;31m"); printf("%c\n",186); 
+	printf("\t\t\t\t\t%c",200);  for(int p=0; p<24; p++){printf("%c",205);} printf("%c\n",188);	 //Parte de abajo del recuadro 
+	printf("\033[0m");	
 
     printf("\n\t\t\t\t\tPorfavor ingresa tu Password: \n"); 
 	printf("\t\t\t\t\tUsuario: "); puts(user); printf("\n");
@@ -44,21 +52,21 @@ char user[10], pass[10];
 	system("CLS");
 	//Aqui metan que se verifique que pass y user no sea el mismo 
 	//y poner una condicion para que se ingresen el valor 
-	
+	*/
 	//alerta de datos incorectos
 	system("cls");
-	printf("\033[0;31m"); 	printf("\t\t\t\t\t________________________________\n"); 
-	printf("\t\t\t\t\t|\t"); 	
-	printf(" ERROR ENCONTRADO\t|\n\t\t\t\t\t|\tUsuario incorrecto\t|\n\t\t\t\t\t|\t\tO\t\t|\n\t\t\t\t\t|\tPassword incorrecto\t|\n");
-	
-	
-	printf("\t\t\t\t\t---------------------------------\n\n");	printf("\033[0m");	
+	printf("\033[0;31m"); 	//Iniciamos color ROJO
+	printf("\t\t\t\t\t%c",201);  for(int p=0; p<31; p++){printf("%c",205);} printf("%c\n",187); printf("\t\t\t\t\t%c \t",186); //Parte de arriba del recuadro
+	printf(" ERROR ENCONTRADO\t%c\n\t\t\t\t\t%c\tUsuario incorrecto\t%c\n\t\t\t\t\t%c\t\tO\t\t%c\n\t\t\t\t\t%c\tPassword incorrecto\t%c\n",186,186,186,186,186,186,186);
+	printf("\t\t\t\t\t%c",200);  for(int p=0; p<31; p++){printf("%c",205);} printf("%c\n",188);	 //Parte de abajo del recuadro 
+	printf("\033[0m");
 
-	
+	/*
 	//Si todo es correcto
 	printf("\n\t\t\t\t\tPerfecto! Es hora de empezar el juego!!\n");		
 	sleep(3);
 	system("CLS");
+	*/
 }
 
 void aniInicial(){
