@@ -6,12 +6,14 @@
 #define verdad 1
 #define falso 0
 void GuardarNuevoDato(char *archivo,char *dato,char finDatos[3]);
+void GuardarTodo(char *archivo,char *dato,char finDatos[3]);
 char *LeerArchivo (char *archi,int Id,int datoRequerido);
 void HacerArchivo(char *nombreArchivoNuevo);
 void CambiarDatos(char *archi,int Id,char *dato,char finDatos[3]);
 int ValidarDatosEnMismoRenglon(char *archi,char *Dato,char *Dato2);
 int DamePosicionDelDato(char *archi,char *Dato,int rengloOColumna);
 int teDaLaContrasena(char *archi,char *nombreDeUsuario,char *contrase);
+int CantidadDeRenglones (char *archi);
 
 void GuardarNuevoDato(char *archivo,char *dato,char finDatos[3]){
 	FILE *unArchivo;
@@ -36,50 +38,73 @@ void GuardarNuevoDato(char *archivo,char *dato,char finDatos[3]){
         printf("No se pudo abrir el archivo.");
     }
 }
-char *LeerArchivo (char *archi,int Id,int datoRequerido){
-        FILE *archivoLeido;
-        int idActual=0, posicion=0,numDato=2;
-        char *cadena=" ";
-        char *segmentoDeCadena;
-        char *regreso;
-		char separadorDatos[1]=":";
-		char separadorRenglones='\n';
-        archivoLeido = fopen(archi,"r");
-		rewind(archivoLeido);
-        if (archivoLeido != NULL)
+void GuardarTodo(char *archivo,char *dato,char finDatos[3]){
+	FILE *unArchivo;
+    unArchivo = fopen(archivo, "w");
+    if(unArchivo !=NULL)
+    {
+    	if(strcmp(finDatos,"FIN")==0){
+    		fprintf(unArchivo, "%s:\n", dato);
+		}
+		else{
+			fprintf(unArchivo, "%s:", dato);
+		}
+        
+        if( fclose(unArchivo) != 0 )
         {
-            while (feof(archivoLeido) == 0 && idActual<Id)  /* Mientras no se detecte el caracter EOF (End Of File) */
-            {
-        		numDato=1;
-        		strcpy(cadena," ");
-                fgets(cadena,1000,archivoLeido);
-                idActual=idActual+1;
-	            posicion=ftell(archivoLeido);
-	            segmentoDeCadena = strtok(cadena,separadorDatos);
-	            if(datoRequerido==1){
-	            	*regreso=segmentoDeCadena;
-				}
-				else{
-					while(numDato<datoRequerido && (segmentoDeCadena = strtok(NULL,separadorDatos)) != NULL )    // Posteriores llamadas
-				   {
-	                    numDato=numDato+1;
-				   }
-				   *regreso=segmentoDeCadena;
-				}
-			}
-            if(fclose(archivoLeido)!=0)
-            {
-                printf("\n\nHubo un problema al CERRAR el archivo\n\n");
-            }
-
+           printf("\nNo se guardaron los datos.");
         }
-        else
-        {
-            printf("\nError al ABRIR el archivo. \n\n");
-        }
-        return *regreso;
+        
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo.");
+    }
 }
+char *LeerArchivo (char *archi,int Id,int datoRequerido){
+    FILE *archivoLeido;
+    int idActual=0, posicion=0,numDato=2;
+    char *cadena=(char*)malloc(sizeof(char)*1000000);;
+    char *segmentoDeCadena=(char*)malloc(sizeof(char));;
+    char *regreso=(char*)malloc(sizeof(char));;
+	char separadorDatos[]=":";
+	char separadorRenglones='\n';
+    archivoLeido = fopen(archi,"r");
+	rewind(archivoLeido);
+    if (archivoLeido != NULL)
+    {
+        while (feof(archivoLeido) == 0 && idActual<Id)  /* Mientras no se detecte el caracter EOF (End Of File) */
+        {
+    		numDato=1;
+    		strcpy(cadena," ");
+    		//fscanf(archivoLeido,"%s",cadena);
+    		fgets(cadena,99999999999,archivoLeido);
+            idActual=idActual+1;
+            posicion=ftell(archivoLeido);
+            segmentoDeCadena = strtok(cadena,separadorDatos);
+            if(datoRequerido==1){
+            	regreso=segmentoDeCadena;
+			}
+			else{
+				while(numDato<datoRequerido && (segmentoDeCadena = strtok(NULL,separadorDatos)) != NULL )    // Posteriores llamadas
+			   {
+                    numDato=numDato+1;
+			   }
+			   regreso=segmentoDeCadena;
+			}
+		}
+        if(fclose(archivoLeido)!=0)
+        {
+            printf("\n\nHubo un problema al CERRAR el archivo\n\n");
+        }
 
+    }
+    else
+    {
+        printf("\nError al ABRIR el archivo. \n\n");
+    }
+    return regreso;
+}
 void HacerArchivo(char *nombreArchivoNuevo){
 	FILE *nuevoArchivo;
     nuevoArchivo = fopen(nombreArchivoNuevo, "w");
@@ -100,7 +125,7 @@ void HacerArchivo(char *nombreArchivoNuevo){
 void CambiarDatos(char *archi,int Id,char *dato,char finDatos[3]){
         FILE *CambioArchivo;
         int idActual=0, posicion=0,numDato=2;
-        char *cadena=" ";
+        char *cadena;
         char *nuevosDatos;
         CambioArchivo = fopen(archi,"r+");
 		rewind(CambioArchivo);
@@ -140,7 +165,7 @@ void CambiarDatos(char *archi,int Id,char *dato,char finDatos[3]){
 int ValidarDatosEnMismoRenglon(char *archi,char *Dato,char *Dato2){
         FILE *archivo;
         int validacion=falso,idActual=0, bandera=0, bandera2=0,idDato=1;
-        char *cadena=" ";
+        char *cadena;
         char *segmentoDeCadena;
         char *regreso;
 		char separadorDatos[]=":";
@@ -241,7 +266,7 @@ int DamePosicionDelDato(char archi[50],char Dato[50],int rengloOColumna){
 int teDaLaContrasena(char *archi,char *nombreDeUsuario,char *contrase){
 	int renglon=0,columna=0,contra=0;
 	char *cadin,*cadin2;
-	char *guardarEnEstaVariable=" ";
+	char *guardarEnEstaVariable;
 	renglon=DamePosicionDelDato(archi,nombreDeUsuario,0);
 	if(renglon==0){
 		renglon=1;
@@ -253,5 +278,38 @@ int teDaLaContrasena(char *archi,char *nombreDeUsuario,char *contrase){
 		renglon=falso;
 	}
 	return renglon;
+}
+int CantidadDeRenglones (char *archi){
+        FILE *archivoLeido;
+        int idActual=0,posicion=0;
+        char *cadena;
+        char *segmentoDeCadena=NULL;
+        int regreso=0;
+		char separadorRenglones='\n';
+        archivoLeido = fopen(archi,"r");
+		rewind(archivoLeido);
+        if (archivoLeido != NULL)
+        {
+            while (feof(archivoLeido) == 0)  /* Mientras no se detecte el caracter EOF (End Of File) */
+            {
+        		strcpy(cadena," ");
+                fgets(cadena,99999999999/*10000000000000*/,archivoLeido);
+                
+	            posicion=ftell(archivoLeido);
+	            segmentoDeCadena = strtok(cadena,":\n");
+	            idActual++;
+			}
+			regreso=idActual;
+            if(fclose(archivoLeido)!=0)
+            {
+                printf("\n\nHubo un problema al CERRAR el archivo\n\n");
+            }
+
+        }
+        else
+        {
+            printf("\nError al ABRIR el archivo. \n\n");
+        }
+        return regreso;
 }
 
