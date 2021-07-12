@@ -17,6 +17,7 @@ void pantCompleta(); //Funcion que logra hacer que el programa se ejecute en pan
 
 int main(){ //Main para probar las animaciones BORRAR DESPUES 
 	pantCompleta();
+	aniLogo();
 	barraSup();
 }
 
@@ -79,20 +80,20 @@ char user[10], pass[10];
 void aniLogo(){
 	system("cls");
 printf("\033[0;32m");                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-printf(":::::::::      ::: ::::::::::: :::     :::        :::            :::   					\n");              
-printf(":+:    :+:   :+: :+:   :+:   :+: :+:   :+:        :+:          :+: :+:               	\n");
-printf("+:+    +:+  +:+   +:+  +:+  +:+   +:+  +:+        +:+         +:+   +:+              	\n");
-printf("+#++:++#+  +#++:++#++: +#+ +#++:++#++: +#+        +#+        +#++:++#++:             	\n");
-printf("+#+    +#+ +#+     +#+ +#+ +#+     +#+ +#+        +#+        +#+     +#+             	\n");
-printf("#+#    #+# #+#     #+# #+# #+#     #+# #+#        #+#        #+#     #+#             	\n");
-printf("#########  ###     ### ### ###     ### ########## ########## ###     ###             	\n");
-printf("                          ::::    :::     :::     :::     :::     :::     :::        	\n");
-printf("                          :+:+:   :+:   :+: :+:   :+:     :+:   :+: :+:   :+:        	\n");
-printf("                          :+:+:+  +:+  +:+   +:+  +:+     +:+  +:+   +:+  +:+        	\n");
-printf("                          +#+ +:+ +#+ +#++:++#++: +#+     +:+ +#++:++#++: +#+        	\n");
-printf("                          +#+  +#+#+# +#+     +#+  +#+   +#+  +#+     +#+ +#+        	\n");
-printf("                          #+#   #+#+# #+#     #+#   #+#+#+#   #+#     #+# #+#        	\n");
-printf("                          ###    #### ###     ###     ###     ###     ### ########## 	\n");
+printf("\t\t\t\t\t\t\t:::::::::      ::: ::::::::::: :::     :::        :::            :::   					\n");              
+printf("\t\t\t\t\t\t\t:+:    :+:   :+: :+:   :+:   :+: :+:   :+:        :+:          :+: :+:               	\n");
+printf("\t\t\t\t\t\t\t+:+    +:+  +:+   +:+  +:+  +:+   +:+  +:+        +:+         +:+   +:+              	\n");
+printf("\t\t\t\t\t\t\t+#++:++#+  +#++:++#++: +#+ +#++:++#++: +#+        +#+        +#++:++#++:             	\n");
+printf("\t\t\t\t\t\t\t+#+    +#+ +#+     +#+ +#+ +#+     +#+ +#+        +#+        +#+     +#+             	\n");
+printf("\t\t\t\t\t\t\t#+#    #+# #+#     #+# #+# #+#     #+# #+#        #+#        #+#     #+#             	\n");
+printf("\t\t\t\t\t\t\t#########  ###     ### ### ###     ### ########## ########## ###     ###             	\n");
+printf("\t\t\t\t\t\t\t                          ::::    :::     :::     :::     :::     :::     :::        	\n");
+printf("\t\t\t\t\t\t\t                          :+:+:   :+:   :+: :+:   :+:     :+:   :+: :+:   :+:        	\n");
+printf("\t\t\t\t\t\t\t                          :+:+:+  +:+  +:+   +:+  +:+     +:+  +:+   +:+  +:+        	\n");
+printf("\t\t\t\t\t\t\t                          +#+ +:+ +#+ +#++:++#++: +#+     +:+ +#++:++#++: +#+        	\n");
+printf("\t\t\t\t\t\t\t                          +#+  +#+#+# +#+     +#+  +#+   +#+  +#+     +#+ +#+        	\n");
+printf("\t\t\t\t\t\t\t                          #+#   #+#+# #+#     #+#   #+#+#+#   #+#     #+# #+#        	\n");
+printf("\t\t\t\t\t\t\t                          ###    #### ###     ###     ###     ###     ### ########## 	\n");
 
                                                                                         
 }                                                                       
@@ -150,12 +151,12 @@ void barraSup(){
 	int BalaM=1; 
 	int BalaG=0;
 	int puntos=100;
-	printf("\t\t\t\t\t%c",201);  for(int p=0; p<115; p++){printf("%c",205);} printf("%c\n",187); printf("\t\t\t\t\t%c \t",186); //Parte de arriba del recuadro
+	printf("%c",201);  for(int p=0; p<209; p++){printf("%c",205);} printf("%c\n",187); printf("%c \t",186); //Parte de arriba del recuadro
 		
 	printf("Nombre: %s ", fuser); printf("\t\tVidas:");	for(int i=0; i<vidas; i++){printf("%c",3);}
-	printf("\t\t Balas: %i CH %c%c, %i M %c%c, %i G %c%c",BalaC,176,176,BalaM,177,177, BalaG,178,178);
-	printf("\t\t Puntos: %c%i\t    %c",36, puntos,186);
-	printf("\n\t\t\t\t\t%c",200);  for(int p=0; p<115; p++){printf("%c",205);} printf("%c\n",188);	 //Parte de abajo del recuadro 
+	printf("\t\t\t\t\t\t\t\t\t\t\t\t\t Balas: %i CH %c%c, %i M %c%c, %i G %c%c",BalaC,176,176,BalaM,177,177, BalaG,178,178);
+	printf("\t\t     Puntos: %c%i\t  %c",36, puntos,186);
+	printf("\n%c",200);  for(int p=0; p<209; p++){printf("%c",205);} printf("%c\n",188);	 //Parte de abajo del recuadro 
 }
 
 
