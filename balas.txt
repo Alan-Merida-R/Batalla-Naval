@@ -1,0 +1,4 @@
+Bala universal:Estas bals son infinitas y solo hace una casilla de daño:▄:$:0:
+Bala Rectangular:Al tirar esta bala hace 2 casillas de daño:▄▄:$:150:
+Bala Cuadrada:Al tirar esta bala de 3x3 y hace 9 casillas de daño:▓▓:$:400:
+Bomba atomica:Al tirar esta bomba de 5x5, haces un daño de 25 casillas:■█▒█■:$:1000:

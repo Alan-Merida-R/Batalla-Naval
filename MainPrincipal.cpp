@@ -7,13 +7,11 @@
 #include <conio.h>
 #define verdad 1
 #define falso 0
+//Programas
+#include"FuncionesEstructurales.cpp"
+usuarios **bajarDatosAListaCircular();
 int main()
 {
-	printf("");
-	gets(Variable);
-	//fgets(variable, 2000, stdin);
-	//scanf("%",&);
-	setbuf(stdin, NULL);
-	fflush(stdin);
+	//poner un switch y mandar a llamar a todas las funciones
 	return 0;
 }
