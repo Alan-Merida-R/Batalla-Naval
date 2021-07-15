@@ -18,9 +18,12 @@ struct usuarios{
 	usuarios *siguiente;
 	usuarios *anterior;
 };
+//balas
 struct balas{//este va a archivos
+	char *Nombre;
 	char *info;
 	char *grafico;
+	char *signo;
 	int costo;
 	balas *siguiente;
 	balas *anterior;
@@ -29,7 +32,7 @@ struct balas{//este va a archivos
 struct caracteristicas{//este va a archivos
 	int id;
 	char *nombreDelTablero;
-	int posicion[5][5];//[x][y]
+	int naves[5][2];//[Barco][x o y]
 	int nivel;
 };
 
