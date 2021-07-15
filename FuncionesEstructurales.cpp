@@ -1,69 +1,37 @@
 //Funciones de estructura
- #include<stdio.h>
+#include<stdio.h>
 #include<string.h>
 #include <stdlib.h>
+//Bibliotecas
 #include"Bibliotecas\GuardarDatos.h"
 #include"Bibliotecas\Estructuras.h"
-/*
-struct datos{
-	int id;
-	char *usuario;
-	char *contra;
-	int puntos;
-	int vidas;
-	int rectagular;
-	int cuadrada;
-	int atomica;
-};
-
-struct usuarios{
-	datos *ingreso;
-	usuarios *siguiente;
-	usuarios *anterior;
-};*inicio=NULL, *fin=NULL;
-struct balas{//este va a archivos
-	char *info;
-	char *grafico;
-	int costo;
-	balas *siguiente;
-	balas *anterior;
-}*uno=NULL,*tres=NULL;
-//tableros
-struct caracteristicas{//este va a archivos
-	int id;
-	char *nombreDelTablero;
-	int posicion[5][5];//[x][y]
-	int nivel;
-};
-
-struct tableros{
-	caracteristicas *nueva;
-	tableros *siguiente;
- 	tableros *anterior;
-}*inicial=NULL,*final=NULL;
-*/
-
-usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica);
- //usuarios buscarUsuarios();
- //usuarios modificarUsuarios();
+//Archivos
+#define ArchivoUsuarios "baseDeDatos.txt"
+#define txt ".txt"
+#define ArchivoBalas "balas.txt"
+//usuario
+usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica);//inbresa usiario pero solo a la lista
+usuarios *buscarUsuarios(usuarios *primero,int idDeUsuario);
+usuarios *modificarUsuarios(usuarios *primero,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica);//modifica pero solo en la lista
  void mostrarUsuarios(usuarios *primero);
- void subirUsuarios(usuarios *primero);
- usuarios **bajarUsuarios();
- 
- //void ingresarTablero();//Funciones para el tablero
- //void buscarTablero();
- //void modificarTablero();
- //void eliminarTablero();
+ void subirUsuarios(usuarios *primero);//Sube directamente un usuario nuevo al archivo
+ void enviarNuevaLista(usuarios *primero);//Borra la lista vieja y pone la nueva
+//balas
+balas *BajarBalas(balas *primera);
+//Tablero
+tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);//Funciones para el tablero
+tableros **bajarTablero(int id,tableros *inicioBajar, tableros *finBajar);
+tableros *buscarTablero(tableros *inicial,char aliasDelTablero);
+tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);
+tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar);
+void enviarNuevaListaDeTableros(int id,tableros *primerTablero);
  //void mostrarTableros();
- 
-  //void ingresarBalas();
-  //void buscarBalas();
 
  //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica){
 	usuarios **iniYFin=(usuarios**)malloc(sizeof(usuarios*));
  	usuarios *nuevo=(usuarios*)malloc(sizeof(usuarios));
- 	
+
  	datos *nuevosDatos=(datos*)malloc(sizeof(datos));
  	nuevosDatos->id=id;
  	nuevosDatos->usuario=usuario;
@@ -74,12 +42,12 @@ usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char
  	nuevosDatos->cuadrada=cuadrada;
  	nuevosDatos->atomica=atomica;
  	nuevo->ingreso=nuevosDatos;
- 	
+
    if(primero==NULL){
    	primero=nuevo;
    	primero->siguiente=primero;
    	ultimo=primero;
-   	primero->anterior=ultimo;	
+   	primero->anterior=ultimo;
    }
    else{
    	ultimo->siguiente=nuevo;
@@ -92,66 +60,70 @@ usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char
    iniYFin[1]=ultimo;
    return iniYFin;
  }
- /*
-void buscarNodo(){
- 	int nodoBuscado,encontrado;
+ usuarios *buscarUsuarios(usuarios *primero,int idDeUsuario){
+ 	int usuarioBuscado,encontrado;
  	encontrado=0;
- 	nodo *actual=(nodo*)malloc(sizeof(nodo));
+ 	usuarios *actual=(usuarios*)malloc(sizeof(usuarios));
+ 	usuarios *retorno=(usuarios*)malloc(sizeof(usuarios));
+ 	retorno=NULL;
  	actual=primero;
- 	printf("ingresa el dato que quieras buscar.\n");
- 	scanf("%i",&nodoBuscado);
  	if(primero!=NULL){
  		do{
- 			if(actual->dato=nodoBuscado){
- 				printf("tu dato fue encontrado.\n");
+ 			usuarioBuscado=actual->ingreso->id;
+ 			if(usuarioBuscado==idDeUsuario){
+ 				actual=actual->anterior;
  				encontrado=1;
  			}
  			actual=actual->siguiente;
  		}while(actual!=primero && encontrado==0);
- 		if(encontrado==0){
- 			printf("no se encontro el dato");
+ 		if(encontrado==1){
+ 			retorno=actual;
  		}
+
  	}else{
  		printf("la lsita esta vacia.\n");
  	}
+	return retorno;
  }
- /*
-void modificarNodo(){
-	int nodoBuscado,encontrado;
+
+usuarios *modificarUsuarios(usuarios *primero,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica){
+	int encontrado;
  	encontrado=0;
- 	nodo *actual=(nodo*)malloc(sizeof(nodo));
- 	actual=primero;
- 	printf("ingresa el dato que quieras buscar.\n");
- 	scanf("%i",&nodoBuscado);
+ 	usuarios *actualModif=(usuarios*)malloc(sizeof(usuarios));
+ 	actualModif=primero;
  	if(primero!=NULL){
  		do{
- 			if(actual->dato==nodoBuscado){
- 				printf("tu dato fue encontrado.\n");
- 				printf("dame el nuuevo dato.\n");
- 				scanf("%i",&actual->dato);
- 				
+ 			if(actualModif->ingreso->id==id){
+ 				actualModif->ingreso->usuario=usuario;
+ 				actualModif->ingreso->contra=contra;
+ 				actualModif->ingreso->puntos=puntos;
+ 				actualModif->ingreso->vidas=vidas;
+ 				actualModif->ingreso->rectagular=rectagular;
+ 				actualModif->ingreso->cuadrada=cuadrada;
+ 				actualModif->ingreso->atomica=atomica;
  				encontrado=1;
  			}
- 			actual=actual->siguiente;
- 		}while(actual!=primero && encontrado==0);
+ 			actualModif=actualModif->siguiente;
+ 		}while(actualModif!=primero);
  		if(encontrado==0){
+ 			actualModif=NULL;
  			printf("no se encontro el dato");
  		}
  	}else{
  		printf("la lsita esta vacia.\n");
  	}
-	
+	return actualModif;
 }
 /*
 void eliminarNodo(){
 	int nodoBuscado,encontrado;
-	
+
  	encontrado=0;
  	nodo *actual=(nodo*)malloc(sizeof(nodo));
  	actual=primero;
  	nodo *ant=(nodo*)malloc(sizeof(nodo));
  	ant=NULL;
- 	
+
  	printf("ingresa el dato que quieras buscar.\n");
  	scanf("%i",&nodoBuscado);
  	if(primero!=NULL){
@@ -162,12 +134,12 @@ void eliminarNodo(){
  					primero=primero->siguiente;
  					primero->anterior=ultimo;
  					ultimo->siguiente=primero;
- 					
+
  				}else if(actual==ultimo){
  					ultimo=ant;
  					ultimo->siguiente=primero;
  					primero->anterior=ultimo;
- 				
+
  				}else{
  					ant->siguiente=actual->siguiente;
  					actual->siguiente->anterior=ant;
@@ -209,7 +181,7 @@ void mostrarUsuarios(usuarios *primero){
 	}
 }
 void subirUsuario(usuarios *primero){
-	
+
 	char *id=(char*)malloc(sizeof(char));
 	char *usuario=(char*)malloc(sizeof(char));
 	char *contra=(char*)malloc(sizeof(char));
@@ -218,12 +190,12 @@ void subirUsuario(usuarios *primero){
 	char *rectangular=(char*)malloc(sizeof(char));
 	char *cuadrada=(char*)malloc(sizeof(char));
 	char *atomica=(char*)malloc(sizeof(char));
-	
+
 	usuarios *actual=(usuarios*)malloc(sizeof(usuarios));
 	actual=primero;
 	if(primero!=NULL){
 		do{
-			
+
 			sprintf(id, "%i", actual->ingreso->id);
 			sprintf(puntos, "%i", actual->ingreso->puntos);
 			sprintf(vidas, "%i", actual->ingreso->vidas);
@@ -232,82 +204,155 @@ void subirUsuario(usuarios *primero){
 			sprintf(atomica, "%i", actual->ingreso->atomica);
 			strcpy(usuario,actual->ingreso->usuario);
 			strcpy(contra,actual->ingreso->contra);
-			GuardarNuevoDato("baseDeDatos.txt",id," ");
-			GuardarNuevoDato("baseDeDatos.txt",usuario," ");
-			GuardarNuevoDato("baseDeDatos.txt",contra," ");
-			GuardarNuevoDato("baseDeDatos.txt",puntos," ");
-			GuardarNuevoDato("baseDeDatos.txt",vidas," ");
-			GuardarNuevoDato("baseDeDatos.txt",rectangular," ");
-			GuardarNuevoDato("baseDeDatos.txt",cuadrada," ");
-			GuardarNuevoDato("baseDeDatos.txt",atomica,"FIN");
+			GuardarNuevoDato(ArchivoUsuarios,id," ");
+			GuardarNuevoDato(ArchivoUsuarios,usuario," ");
+			GuardarNuevoDato(ArchivoUsuarios,contra," ");
+			GuardarNuevoDato(ArchivoUsuarios,puntos," ");
+			GuardarNuevoDato(ArchivoUsuarios,vidas," ");
+			GuardarNuevoDato(ArchivoUsuarios,rectangular," ");
+			GuardarNuevoDato(ArchivoUsuarios,cuadrada," ");
+			GuardarNuevoDato(ArchivoUsuarios,atomica,"FIN");
 			actual=actual->siguiente;
 		}while(actual!=primero);
 	}else{
 		printf("la lista esta vacia.\n");
 	}
 }
-usuarios **bajarDatosAListaCircular(){
-	usuarios *prime=(usuarios*)malloc(sizeof(usuarios));
-	prime=NULL;
-	usuarios *ultim=(usuarios*)malloc(sizeof(usuarios));
-	ultim=NULL;
-	usuarios **actual=NULL;
-	
+ void enviarNuevaLista(usuarios *primero){
+
+	char *id=(char*)malloc(sizeof(char));
 	char *usuario=(char*)malloc(sizeof(char));
 	char *contra=(char*)malloc(sizeof(char));
-	char *idn=(char*)malloc(sizeof(char));
-	char *puntosn=(char*)malloc(sizeof(char));
-	char *vidasn=(char*)malloc(sizeof(char));
-	char *rectangularn=(char*)malloc(sizeof(char));
-	char *cuadradan=(char*)malloc(sizeof(char));
-	char *atomican=(char*)malloc(sizeof(char));
+	char *puntos=(char*)malloc(sizeof(char));
+	char *vidas=(char*)malloc(sizeof(char));
+	char *rectangular=(char*)malloc(sizeof(char));
+	char *cuadrada=(char*)malloc(sizeof(char));
+	char *atomica=(char*)malloc(sizeof(char));
+
+	usuarios *actual=(usuarios*)malloc(sizeof(usuarios));
+	actual=primero;
+	if(primero!=NULL){
+		EliminarTodo(ArchivoUsuarios);
+		do{
+			sprintf(id, "%i", actual->ingreso->id);
+			sprintf(puntos, "%i", actual->ingreso->puntos);
+			sprintf(vidas, "%i", actual->ingreso->vidas);
+			sprintf(rectangular,"%i", actual->ingreso->rectagular);
+			sprintf(cuadrada, "%i", actual->ingreso->cuadrada);
+			sprintf(atomica, "%i", actual->ingreso->atomica);
+			strcpy(usuario,actual->ingreso->usuario);
+			strcpy(contra,actual->ingreso->contra);
+			GuardarNuevoDato(ArchivoUsuarios,id," ");
+			GuardarNuevoDato(ArchivoUsuarios,usuario," ");
+			GuardarNuevoDato(ArchivoUsuarios,contra," ");
+			GuardarNuevoDato(ArchivoUsuarios,puntos," ");
+			GuardarNuevoDato(ArchivoUsuarios,vidas," ");
+			GuardarNuevoDato(ArchivoUsuarios,rectangular," ");
+			GuardarNuevoDato(ArchivoUsuarios,cuadrada," ");
+			GuardarNuevoDato(ArchivoUsuarios,atomica,"FIN");
+			actual=actual->siguiente;
+		}while(actual!=primero);
+	}else{
+		printf("la lista esta vacia.\n");
+	}
+}
+balas *BajarBalas(balas *primera){
+	balas *cuarta=NULL;
+	char *nombre=(char*)malloc(sizeof(char));
+	char *info=(char*)malloc(sizeof(char));
+	char *diseno=(char*)malloc(sizeof(char));
+	char *signo=(char*)malloc(sizeof(char));
+	char *costoLetra=(char*)malloc(sizeof(char));
 	
-	int id,puntos,vidas,rectangular,cuadrada,atomica;
+	int costo;
 	int x=0;
-	
-	x=CantidadDeRenglones("baseDeDatos.txt");
+
+	x=CantidadDeRenglones(ArchivoBalas);
 	printf("[%i]\n",x);
 	for(int i=1;i<x;i++){
-		idn=LeerArchivo("baseDeDatos.txt",i,1);
-		usuario=LeerArchivo("baseDeDatos.txt",i,2);
-		contra=LeerArchivo("baseDeDatos.txt",i,3);
-		puntosn=LeerArchivo("baseDeDatos.txt",i,4);
-		vidasn=LeerArchivo("baseDeDatos.txt",i,5);
-		rectangularn=LeerArchivo("baseDeDatos.txt",i,6);
-		cuadradan=LeerArchivo("baseDeDatos.txt",i,7);
-		atomican=LeerArchivo("baseDeDatos.txt",i,8);	
+		if(i==1){
+			primera=NULL;
+			cuarta=NULL;
+		}
+		nombre=LeerArchivo(ArchivoBalas,i,1);
+		info=LeerArchivo(ArchivoBalas,i,2);
+		diseno=LeerArchivo(ArchivoBalas,i,3);
+		signo=LeerArchivo(ArchivoBalas,i,4);
+		costoLetra=LeerArchivo(ArchivoBalas,i,5);
+		costo=atoi(costoLetra);
 		
-		printf("letra:  ");
-		printf("[%s]-",idn);
-		printf("[%s]-",usuario);
-		printf("[%s]-",contra);
-		printf("[%s]-",puntosn);
-		printf("[%s]-",vidasn);
-		printf("[%s]-",rectangularn);
-		printf("[%s]-",cuadradan);
-		printf("[%s]\n",atomican);
-		
-		id=atoi(idn);
-		puntos=atoi(puntosn);
-		vidas=atoi(vidasn);
-		rectangular=atoi(rectangularn);
-		cuadrada=atoi(cuadradan);
-		atomica=atoi(atomican);
-		
-		printf("numero:  ");
-		printf("[%d]-",id);
-		printf("[%d]-",puntos);
-		printf("[%i]-",vidas);
-		printf("[%i]-",rectangular);
-		printf("[%i]-",cuadrada);
-		printf("[%i]\n",atomica);
-		
-		actual=ingresarUsuario(prime,ultim,id,usuario,contra,puntos,vidas,rectangular,cuadrada,atomica);
-		prime=actual[0];
-		ultim=actual[1];
+		balas *nuevas=(balas*)malloc(sizeof(balas));
+	 	nuevas->Nombre=nombre;
+	 	nuevas->info=info;
+		nuevas->grafico=diseno;
+		nuevas->signo=signo;
+		nuevas->costo=costo;
+	
+	   if(primera==NULL){
+	   	primera=nuevas;
+	   	primera->siguiente=primera;
+	   	cuarta=primera;
+	   	primera->anterior=cuarta;
+	   }
+	   else{
+	   	cuarta->siguiente=nuevas;
+	   	nuevas->siguiente=primera;
+	   	nuevas->anterior=cuarta;
+	   	cuarta=nuevas;
+	   	primera->anterior=cuarta;
+	   }
 	}
-	printf("\n\n2.primero:%s|Segundo%s\n\n",actual[0]->ingreso->usuario,actual[1]->ingreso->usuario);
-	mostrarUsuarios(actual[0]);
-
-	return actual;
+	return primera;
 }
+
+tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso){
+	tableros **ambos=(tableros**)malloc(sizeof(tableros*));
+ 	tableros *nuevoTablero=(tableros*)malloc(sizeof(tableros));
+
+ 	caracteristicas *nuevasCaracteristicas=(caracteristicas*)malloc(sizeof(caracteristicas));
+ 	nuevasCaracteristicas->id=idTableroIngreso;
+ 	nuevasCaracteristicas->nombreDelTablero=nombreDelTableroIngreso;
+ 	for(int i=0;i<5;i++){
+	 	for(int j=0;j<2;j++){
+	 		nuevasCaracteristicas->naves[i][j]=navesDeIngreso[i][j];
+	 	}
+	}
+	nuevasCaracteristicas->nivel=nivelIngreso;
+	
+	nuevoTablero->nueva=nuevasCaracteristicas;
+	
+   if(inicioIngreso==NULL){
+   	inicioIngreso=nuevoTablero;
+   	inicioIngreso->siguiente=inicioIngreso;
+   	finIngreso=inicioIngreso;
+   	inicioIngreso->anterior=finIngreso;
+   }
+   else{
+   	finIngreso->siguiente=nuevoTablero;
+   	nuevoTablero->siguiente=inicioIngreso;
+   	nuevoTablero->anterior=finIngreso;
+   	finIngreso=nuevoTablero;
+   	inicioIngreso->anterior=finIngreso;
+   }
+   ambos[0]=inicioIngreso;
+   ambos[1]=finIngreso;
+   return ambos;
+}
+/*tableros **bajarTablero(int id,tableros *inicioBajar, tableros *finBajar){
+	
+}
+
+/*tableros *buscarTablero(tableros *inicial,char aliasDelTablero){
+	
+}
+
+/*tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso){
+	
+}
+/*tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar){
+	
+}
+/*void enviarNuevaListaDeTableros(int id,tableros *primerTablero){
+	
+}*/
+
