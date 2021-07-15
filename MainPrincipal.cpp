@@ -15,4 +15,3 @@ int main()
 	//poner un switch y mandar a llamar a todas las funciones
 	return 0;
 }
-
