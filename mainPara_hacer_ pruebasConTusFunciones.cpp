@@ -9,6 +9,7 @@
 #define falso 0
 //Programas
 #include"FuncionesEstructurales.cpp"
+tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);
 int main()
 {
 	balas *listaDeBalas=(balas*)malloc(sizeof(balas));
@@ -68,14 +69,49 @@ int main()
 		rectangularBajar=atoi(rectangularLetra);
 		cuadradaBajar=atoi(cuadradaLetra);
 		atomicaBajar=atoi(atomicaLetra);
-		
 		actual=ingresarUsuario(primeroPrincipal,ultimoPrincipal,idBajar,usuarioBajar,contraBajar,puntosBajar,vidasBajar,rectangularBajar,cuadradaBajar,atomicaBajar);
    		primeroPrincipal=actual[0];
    		ultimoPrincipal=actual[1];
 	}
-		
+	dosPrimYFin=bajarTablero(1);
+	primTablero=dosPrimYFin[0];
+	finTablero=dosPrimYFin[1];
+	printf("Holaaa %s",dosPrimYFin[0]->nueva->nombreDelTablero);
+	//primTablero=modificarTablero(primTablero,finTablero,1,"TableroCambiado",navios,2);
+	printf("%s",finTablero->nueva->nombreDelTablero);
+	enviarNuevaListaDeTableros(1,primTablero);
 	//final subirNuevoDoc
 	enviarNuevaLista(primeroPrincipal);
 	
 	return 0;
+}
+tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nuevoNombreDelTableroIngreso, int nuevasNavesDeIngreso[5][2],int nuevoNivelIngreso){
+	int encontrado;
+ 	encontrado=0;
+ 	tableros *modificacionDeTablero=(tableros*)malloc(sizeof(tableros));
+ 	modificacionDeTablero=inicio;
+ 	if(inicio!=NULL){
+ 		do{
+ 			printf("Holaa\n");
+ 			if(modificacionDeTablero->nueva->id==idTableroIngreso){
+ 				modificacionDeTablero->nueva->nombreDelTablero=nuevoNombreDelTableroIngreso;
+ 				for(int i=0;i<5;i++){
+ 					for(int j=0;j<2;j++){
+				 		modificacionDeTablero->nueva->naves[i][j]=nuevasNavesDeIngreso[i][j];
+					}
+				 }
+ 				modificacionDeTablero->nueva->nivel=nuevoNivelIngreso;
+ 				encontrado=1;
+ 			}
+ 			modificacionDeTablero=modificacionDeTablero->siguiente;
+ 			
+ 		}while(modificacionDeTablero!=inicio);
+ 		if(encontrado==0){
+ 			modificacionDeTablero=NULL;
+ 			printf("no se encontro el dato");
+ 		}
+ 	}else{
+ 		printf("la lsita esta vacia.\n");
+ 	}
+	return modificacionDeTablero;
 }
