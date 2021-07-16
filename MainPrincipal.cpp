@@ -8,7 +8,8 @@
 #define verdad 1
 #define falso 0
 //Programas
-#include"FuncionesEstructurales.cpp"
+#include"FuncionesEstructurales.cpp"//tiene muchas funciones para hacer listas y trae bibleotecas para subir archivos y con las estructuras principales
+
 int main()
 {
 	//Inicio del programa para bajar todos los datos del usuario
