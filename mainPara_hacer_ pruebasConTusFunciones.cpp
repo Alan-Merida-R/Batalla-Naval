@@ -13,6 +13,20 @@ int main()
 {
 	balas *listaDeBalas=(balas*)malloc(sizeof(balas));
 	listaDeBalas=NULL;
+	
+	tableros *primTablero=(tableros*)malloc(sizeof(tableros));
+	primTablero=NULL;
+	tableros *finTablero=(tableros*)malloc(sizeof(tableros));
+	finTablero=NULL;
+	tableros **dosPrimYFin=(tableros**)malloc(sizeof(tableros*));
+	dosPrimYFin=NULL;
+	int navios[5][2];
+	for(int i=0;i<5;i++){
+	 	for(int j=0;j<2;j++){
+	 	navios[i][j]=i;
+	 	}
+	}
+	
 
 	usuarios **actual=(usuarios**)malloc(sizeof(usuarios*));
 	usuarios *primeroPrincipal=(usuarios*)malloc(sizeof(usuarios));
@@ -59,19 +73,9 @@ int main()
    		primeroPrincipal=actual[0];
    		ultimoPrincipal=actual[1];
 	}
-	
-	primeroPrincipal=modificarUsuarios(primeroPrincipal,6,"Alan 6 Modi","Modi6",6,6,6,6,6);
-	buscadoEnMain=buscarUsuarios(primeroPrincipal,6);
-	printf("%s",buscadoEnMain->ingreso->usuario);
-	//poner un switch
-	x=CantidadDeRenglones(ArchivoBalas);
-	printf("[%i]\n",x);
-	listaDeBalas=BajarBalas(listaDeBalas);
-	printf("[%s]\n",listaDeBalas->siguiente->grafico);
+		
 	//final subirNuevoDoc
 	enviarNuevaLista(primeroPrincipal);
 	
-	
 	return 0;
 }
-	

@@ -20,11 +20,12 @@ usuarios *modificarUsuarios(usuarios *primero,int id,char *usuario,char *contra,
 balas *BajarBalas(balas *primera);
 //Tablero
 tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);//Funciones para el tablero
-tableros **bajarTablero(int id,tableros *inicioBajar, tableros *finBajar);
-tableros *buscarTablero(tableros *inicial,char aliasDelTablero);
-tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);
-tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar);
-void enviarNuevaListaDeTableros(int id,tableros *primerTablero);
+void enviarNuevaListaDeTableros(int idUsuario,tableros *primerTablero);//Subir datos al archivo
+tableros **bajarTablero(int idarch);
+//tableros *buscarTablero(tableros *inicial,char aliasDelTablero);
+//tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso);
+//tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar);
+
  //void mostrarTableros();
 
  //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -304,7 +305,6 @@ balas *BajarBalas(balas *primera){
 	}
 	return primera;
 }
-
 tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso){
 	tableros **ambos=(tableros**)malloc(sizeof(tableros*));
  	tableros *nuevoTablero=(tableros*)malloc(sizeof(tableros));
@@ -338,8 +338,102 @@ tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int id
    ambos[1]=finIngreso;
    return ambos;
 }
-/*tableros **bajarTablero(int id,tableros *inicioBajar, tableros *finBajar){
+
+void enviarNuevaListaDeTableros(int idUsuario,tableros *primerTablero){
+	char *idArchivo=(char*)malloc(sizeof(char));
+	char *idTable=(char*)malloc(sizeof(char));
+	char *nombreTable=(char*)malloc(sizeof(char));
+	char *nivelTable=(char*)malloc(sizeof(char));
+	char *Dato1=(char*)malloc(sizeof(char));
+	char *Dato2=(char*)malloc(sizeof(char));
+	char *Dato3=(char*)malloc(sizeof(char));
+	char *Dato4=(char*)malloc(sizeof(char));
+	char *Dato5=(char*)malloc(sizeof(char));
+	char *Dato6=(char*)malloc(sizeof(char));
+	char *Dato7=(char*)malloc(sizeof(char));
+	char *Dato8=(char*)malloc(sizeof(char));
+	char *Dato9=(char*)malloc(sizeof(char));
+	char *Dato10=(char*)malloc(sizeof(char));
 	
+	tableros *indiceDeTableroRecorrido=(tableros*)malloc(sizeof(tableros));
+	indiceDeTableroRecorrido=primerTablero;
+	
+	sprintf(idArchivo, "%i", idUsuario);
+	strcat(idArchivo,txt);
+	if(primerTablero!=NULL){
+		HacerArchivo(idArchivo);
+		do{
+			sprintf(idTable, "%i", indiceDeTableroRecorrido->nueva->id);
+			nombreTable=indiceDeTableroRecorrido->nueva->nombreDelTablero;
+			sprintf(nivelTable, "%i", indiceDeTableroRecorrido->nueva->nivel);
+			sprintf(Dato1, "%i", indiceDeTableroRecorrido->nueva->naves[0][0]);
+			sprintf(Dato2, "%i", indiceDeTableroRecorrido->nueva->naves[0][1]);
+			sprintf(Dato3, "%i", indiceDeTableroRecorrido->nueva->naves[1][0]);
+			sprintf(Dato4, "%i", indiceDeTableroRecorrido->nueva->naves[1][1]);
+			sprintf(Dato5, "%i", indiceDeTableroRecorrido->nueva->naves[2][0]);
+			sprintf(Dato6, "%i", indiceDeTableroRecorrido->nueva->naves[2][1]);
+			sprintf(Dato7, "%i", indiceDeTableroRecorrido->nueva->naves[3][0]);
+			sprintf(Dato8, "%i", indiceDeTableroRecorrido->nueva->naves[3][1]);
+			sprintf(Dato9, "%i", indiceDeTableroRecorrido->nueva->naves[4][0]);
+			sprintf(Dato10, "%i", indiceDeTableroRecorrido->nueva->naves[4][1]);
+			
+			GuardarNuevoDato(idArchivo,idTable,"");
+			GuardarNuevoDato(idArchivo,nombreTable,"");
+			GuardarNuevoDato(idArchivo,Dato1,"");
+			GuardarNuevoDato(idArchivo,Dato2,"");
+			GuardarNuevoDato(idArchivo,Dato3,"");
+			GuardarNuevoDato(idArchivo,Dato4,"");
+			GuardarNuevoDato(idArchivo,Dato5,"");
+			GuardarNuevoDato(idArchivo,Dato6,"");
+			GuardarNuevoDato(idArchivo,Dato7,"");
+			GuardarNuevoDato(idArchivo,Dato8,"");
+			GuardarNuevoDato(idArchivo,Dato9,"");
+			GuardarNuevoDato(idArchivo,Dato10,"");
+			GuardarNuevoDato(idArchivo,nivelTable,"FIN");
+			indiceDeTableroRecorrido=indiceDeTableroRecorrido->siguiente;
+		}while(indiceDeTableroRecorrido!=primerTablero);
+	}else{
+		printf("la lista esta vacia.\n");
+	}
+	}
+tableros **bajarTablero(int idarch){
+	tableros **actualTableroRecorrido=(tableros**)malloc(sizeof(tableros*));
+	actualTableroRecorrido=NULL;
+	tableros *inicioBajarTablero=(tableros*)malloc(sizeof(tableros));
+	inicioBajarTablero=NULL;
+	tableros *finBajarTablero=(tableros*)malloc(sizeof(tableros));
+	finBajarTablero=NULL;
+	
+	char *nombreLet=(char*)malloc(sizeof(char));
+	int id;
+	int datos[5][2];
+	int nivel;
+	
+	char *idEnLetraBajar;
+	sprintf(idEnLetraBajar, "%i", idarch);
+	int cantidadDeTableros;
+	
+	strcat(idEnLetraBajar,txt);
+	cantidadDeTableros=CantidadDeRenglones(idEnLetraBajar);
+	for(int i=1;i<=cantidadDeTableros;i++){
+		id=atoi(LeerArchivo(idEnLetraBajar,i,1));
+		nombreLet=LeerArchivo(idEnLetraBajar,i,2);
+		int l=3;
+		for(int j=0;j<5;j++){
+			datos[j][0]=atoi(LeerArchivo(idEnLetraBajar,i,l));
+			l++;
+			datos[j][1]=atoi(LeerArchivo(idEnLetraBajar,i,l));
+			l++;
+		}
+		nivel=atoi(LeerArchivo(idEnLetraBajar,i,13));
+		actualTableroRecorrido=ingresarTablero(inicioBajarTablero,finBajarTablero,id,nombreLet,datos,nivel);
+		inicioBajarTablero=actualTableroRecorrido[0];
+		finBajarTablero=actualTableroRecorrido[1];
+	}
+	actualTableroRecorrido[0]=inicioBajarTablero;
+	actualTableroRecorrido[1]=finBajarTablero;
+	
+	return actualTableroRecorrido;
 }
 
 /*tableros *buscarTablero(tableros *inicial,char aliasDelTablero){
@@ -350,9 +444,6 @@ tableros **ingresarTablero(tableros *inicioIngreso, tableros *finIngreso, int id
 	
 }
 /*tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar){
-	
-}
-/*void enviarNuevaListaDeTableros(int id,tableros *primerTablero){
 	
 }*/
 
