@@ -13,6 +13,20 @@ int main()
 {
 	balas *listaDeBalas=(balas*)malloc(sizeof(balas));
 	listaDeBalas=NULL;
+	
+	tableros *primTablero=(tableros*)malloc(sizeof(tableros));
+	primTablero=NULL;
+	tableros *finTablero=(tableros*)malloc(sizeof(tableros));
+	finTablero=NULL;
+	tableros **dosPrimYFin=(tableros**)malloc(sizeof(tableros*));
+	dosPrimYFin=NULL;
+	int navios[5][2];
+	for(int i=0;i<5;i++){
+	 	for(int j=0;j<2;j++){
+	 	navios[i][j]=i;
+	 	}
+	}
+	
 
 	usuarios **actual=(usuarios**)malloc(sizeof(usuarios*));
 	usuarios *primeroPrincipal=(usuarios*)malloc(sizeof(usuarios));
@@ -68,10 +82,12 @@ int main()
 	printf("[%i]\n",x);
 	listaDeBalas=BajarBalas(listaDeBalas);
 	printf("[%s]\n",listaDeBalas->siguiente->grafico);
+	
 	//final subirNuevoDoc
 	enviarNuevaLista(primeroPrincipal);
-	
-	
+	dosPrimYFin=bajarTablero(2);
+	primTablero=dosPrimYFin[0];
+	finTablero=dosPrimYFin[1];
+	printf("Tablero: %i.%s En uno: %i y en dos: %i",finTablero->nueva->id,finTablero->nueva->nombreDelTablero,finTablero->nueva->naves[1][0],finTablero->nueva->naves[3][0]);
 	return 0;
 }
-	
