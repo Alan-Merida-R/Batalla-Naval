@@ -13,9 +13,9 @@
 usuarios **ingresarUsuario(usuarios *primero,struct usuarios *ultimo,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica);//inbresa usiario pero solo a la lista
 usuarios *buscarUsuarios(usuarios *primero,int idDeUsuario);
 usuarios *modificarUsuarios(usuarios *primero,int id,char *usuario,char *contra,int puntos,int vidas,int rectagular,int cuadrada,int atomica);//modifica pero solo en la lista
- void mostrarUsuarios(usuarios *primero);
- void subirUsuarios(usuarios *primero);//Sube directamente un usuario nuevo al archivo
- void enviarNuevaLista(usuarios *primero);//Borra la lista vieja y pone la nueva
+void mostrarUsuarios(usuarios *primero);
+void subirUsuarios(usuarios *primero);//Sube directamente un usuario nuevo al archivo
+void enviarNuevaLista(usuarios *primero);//Borra la lista vieja y pone la nueva
 //balas
 balas *BajarBalas(balas *primera);
 //Tablero
@@ -432,7 +432,7 @@ tableros **bajarTablero(int idarch){
 	}
 	actualTableroRecorrido[0]=inicioBajarTablero;
 	actualTableroRecorrido[1]=finBajarTablero;
-	
+	printf("en bajar\n");
 	return actualTableroRecorrido;
 }
 
@@ -440,9 +440,7 @@ tableros **bajarTablero(int idarch){
 	
 }
 
-/*tableros *modificarTablero(tableros *inicio, tableros *fin,int idTableroIngreso, char *nombreDelTableroIngreso, int navesDeIngreso[5][2],int nivelIngreso){
-	
-}
+/*
 /*tableros *eliminarTablero(tableros *inicioDeEliminacion, tableros *finEliminacion,int idAEliminar){
 	
 }*/
