@@ -73,21 +73,9 @@ int main()
    		primeroPrincipal=actual[0];
    		ultimoPrincipal=actual[1];
 	}
-	
-	primeroPrincipal=modificarUsuarios(primeroPrincipal,6,"Alan 6 Modi","Modi6",6,6,6,6,6);
-	buscadoEnMain=buscarUsuarios(primeroPrincipal,6);
-	printf("%s",buscadoEnMain->ingreso->usuario);
-	//poner un switch
-	x=CantidadDeRenglones(ArchivoBalas);
-	printf("[%i]\n",x);
-	listaDeBalas=BajarBalas(listaDeBalas);
-	printf("[%s]\n",listaDeBalas->siguiente->grafico);
-	
+		
 	//final subirNuevoDoc
 	enviarNuevaLista(primeroPrincipal);
-	dosPrimYFin=bajarTablero(2);
-	primTablero=dosPrimYFin[0];
-	finTablero=dosPrimYFin[1];
-	printf("Tablero: %i.%s En uno: %i y en dos: %i",finTablero->nueva->id,finTablero->nueva->nombreDelTablero,finTablero->nueva->naves[1][0],finTablero->nueva->naves[3][0]);
+	
 	return 0;
 }
