@@ -19,7 +19,7 @@
 int main(){
 	int confirmador=0;
 	confirmador=login2();
-	printf("%d",confirmador);
+	printf("\n%d",confirmador);
 	
 	
 	
