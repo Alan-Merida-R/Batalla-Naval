@@ -62,14 +62,14 @@ int login2(){
 	if(user2!=NULL && pass2!=NULL && strcmp(user2,pass2)!=0){
 		indicePrincipal=primeroPrincipal;
 		do{
-			printf("%s\n",indicePrincipal->siguiente->ingreso->usuario);
-			printf("%s %s \n", user2,pass2);
 			if(strcmp(user2,indicePrincipal->ingreso->usuario)==0 && strcmp(pass2,indicePrincipal->ingreso->contra)==0){
 			bandera=indicePrincipal->ingreso->id;
-			printf("User y pass existen son dife");	
 			}
 			indicePrincipal=indicePrincipal->siguiente;
 		}while(indicePrincipal!=primeroPrincipal && bandera==0);
+	}
+	if(bandera==0){
+		incorrecto();
 	}
 	return bandera;
 }
