@@ -18,9 +18,9 @@
 
 int main(){
 	int confirmador=0;
+	do{
 	confirmador=login2();
-	printf("\n%d",confirmador);
-	
+	}while(confirmador==0);
 	
 	
 	//poner un switch y mandar a llamar a todas las funciones
