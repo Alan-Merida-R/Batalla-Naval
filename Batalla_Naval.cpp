@@ -5,10 +5,10 @@
 #include <unistd.h> // Librería para la función sleep()
 #include <windows.h>//Libreria para el color
 char **login();
+void incorrecto();
 void aniInicial();
 void aniAhorcado();
 void AltEnter();
-int login2(char*,char*);
 
 char **login(){
 	char **logindata=(char**)malloc(sizeof(char*));
@@ -46,14 +46,12 @@ char **login(){
 	gets(pass);
 	logindata[0]=user;
 	logindata[1]=pass;
+	system("CLS");
 	return logindata;
 	}
-	/*
-	system("CLS");
-	login2(user, pass);//Aqui metan que se verifique que pass y user no sea el mismo 
-	//y poner una condicion para que se ingresen el valor 
-	
+
 	//alerta de datos incorectos
+	void incorrecto(){
 	system("cls");
 	printf("\033[0;31m"); 	printf("\t\t\t\t\t________________________________\n"); 
 	printf("\t\t\t\t\t|\t"); 	
@@ -124,24 +122,4 @@ printf("NNNNNNNN         NNNNNNN  aaaaaaaaaa  aaaa        vvv           aaaaaaaa
                                                                                  
                                     
 }
-int login2(char *user2,char *pass2){
-	usuarios *iniciotabladeusuarios =(usuarios*)malloc(sizeof(usuarios));
-	usuarios *fintabladeusuarios =(usuarios*)malloc(sizeof(usuarios));
-	usuarios **tabladeusuarios =(usuarios**)malloc(sizeof(usuarios*));
-	
-	
-	int bandera=0;
-	if(user2!=NULL && pass2!=NULL && user2!=pass2){
-		if(){
-			andera=1;
-			printf("User y pass existen son dife");	
-		}
-	}
-	return bandera;
-}
-main(){
-	
-}
-
- */
 
