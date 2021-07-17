@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <string.h>
 #include "Batalla_Naval.cpp"
 #include "FuncionesEstructurales.cpp"
 int login2();
@@ -58,12 +59,12 @@ int login2(){
    		primeroPrincipal=actualPrincipal[0];
    		ultimoPrincipal=actualPrincipal[1];
 	}
-	if(user2!=NULL && pass2!=NULL && user2!=pass2){
+	if(user2!=NULL && pass2!=NULL && strcmp(user2,pass2)!=0){
 		indicePrincipal=primeroPrincipal;
 		do{
 			printf("%s\n",indicePrincipal->siguiente->ingreso->usuario);
 			printf("%s %s \n", user2,pass2);
-			if(user2==indicePrincipal->ingreso->usuario && pass2==indicePrincipal->ingreso->contra){
+			if(strcmp(user2,indicePrincipal->ingreso->usuario)==0 && strcmp(pass2,indicePrincipal->ingreso->contra)==0){
 			bandera=indicePrincipal->ingreso->id;
 			printf("User y pass existen son dife");	
 			}
