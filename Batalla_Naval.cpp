@@ -4,13 +4,16 @@
 #include <stdlib.h> // Librería para la función system("clear")
 #include <unistd.h> // Librería para la función sleep()
 #include <windows.h>//Libreria para el color
-void login();
+char **login();
 void aniInicial();
 void aniAhorcado();
 void AltEnter();
+int login2(char*,char*);
 
-void login(){
-char user[10], pass[10];
+char **login(){
+	char **logindata=(char**)malloc(sizeof(char*));
+	char *user=(char*)malloc(sizeof(char));
+	char *pass=(char*)malloc(sizeof(char));
 	
 	system("cls");
 	printf("\033[0;31m"); 	printf("\t\t\t\t\t_________________________\n"); 
@@ -41,8 +44,13 @@ char user[10], pass[10];
 	printf("\t\t\t\t\tUsuario: "); puts(user); printf("\n");
 	printf("\t\t\t\t\tPassword: "); 
 	gets(pass);
+	logindata[0]=user;
+	logindata[1]=pass;
+	return logindata;
+	}
+	/*
 	system("CLS");
-	//Aqui metan que se verifique que pass y user no sea el mismo 
+	login2(user, pass);//Aqui metan que se verifique que pass y user no sea el mismo 
 	//y poner una condicion para que se ingresen el valor 
 	
 	//alerta de datos incorectos
@@ -113,22 +121,27 @@ printf("N::::::N       N:::::::Na:::::aaaa::::::a       v:::::v       a:::::aaaa
 printf("N::::::N        N::::::N a::::::::::aa:::a       v:::v         a::::::::::aa:::al::::::l \n");
 printf("NNNNNNNN         NNNNNNN  aaaaaaaaaa  aaaa        vvv           aaaaaaaaaa  aaaallllllll \n");
                                                                                         
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                        
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 
-
-
-
+                                                                                 
+                                    
+}
+int login2(char *user2,char *pass2){
+	usuarios *iniciotabladeusuarios =(usuarios*)malloc(sizeof(usuarios));
+	usuarios *fintabladeusuarios =(usuarios*)malloc(sizeof(usuarios));
+	usuarios **tabladeusuarios =(usuarios**)malloc(sizeof(usuarios*));
+	
+	
+	int bandera=0;
+	if(user2!=NULL && pass2!=NULL && user2!=pass2){
+		if(){
+			andera=1;
+			printf("User y pass existen son dife");	
+		}
+	}
+	return bandera;
+}
+main(){
+	
 }
 
- 
+ */
 
