@@ -25,11 +25,11 @@ int login(){
     //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\n",i, u[i].nombre, i, u[i].password, i, u[i].score);
     printf("Nombre de usuario: ");fflush(stdin);gets(n);
     for(int i=0;i<c;i++)if(strcmp(u[i].nombre, n)==0)r=1;
-    if(r==0){printf("Usuario no registrado\n");tf=0;}
+    if(r==0){printf("Usuario no registrado\n");pause tf=0;}
     else{
         printf("Password: ");fflush(stdin);gets(pw);
         for(int i=0;i<c;i++)if(strcmp(u[i].nombre, n)==0 && strcmp(u[i].password, pw)==0)d=1;
-        if(d==0)printf("Password incorrecto\n");
+        if(d==0){printf("Password incorrecto\n");pause}
         else tf=1;
     }
     return tf;
@@ -51,7 +51,7 @@ void registerin(){
     //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\n",i, u[i].nombre, i, u[i].password, i, u[i].score);
     printf("Nombre de usuario: ");fflush(stdin);gets(n);
     for(int i=0;i<c;i++)if(strcmp(u[i].nombre, n)==0)r=1;
-    if(r==1)printf("Usuario ya existe\n");
+    if(r==1){printf("Usuario ya existe\n");pause}
     else{
         printf("Password: ");fflush(stdin);gets(pw);
         fp=fopen("batallanaval.txt","a");
