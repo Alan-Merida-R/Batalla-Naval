@@ -13,7 +13,9 @@ typedef struct usuario{
 }usuario;
 
 int registerin();
-int login();
+int login(char **n, int **s);
+void update(char **n, int **s);
+void view(char **n);
 void initialize(int ***p, int ***a, int ***f, int **ph, int **pm, int **ah);
 void finalize(int ***p, int ***a, int ***f, int **ph, int **pm, int **ah);
 void grid(int ***xy);
@@ -21,13 +23,23 @@ void place(int c, int ***p, int ***a);
 void fire(int ***p, int ***a, int ***f, int **ph, int **pm, int **ah);//hack secreto aqui
 int game();
 void menu();
+void loggedin(char **p, int **s);
 
 int registerin(){
-    usuario u[50];
+    usuario temp;
     int c=0, e=0, s=0, p=0, opc, tf=0, success=0;//c=count, e=exists, s=score, p=prizes
     char n[25], pw[25];//n=nombre, pw=password
     FILE *fp=fopen("batallanaval.txt","a");fclose(fp);
 
+    fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
+        fscanf(fp,"%s",temp.nombre);
+        fscanf(fp,"%s",temp.password);
+        fscanf(fp,"%d",&temp.score);
+        fscanf(fp,"%d",&temp.prizes);
+        c++;
+    }fclose(fp);
+
+    usuario u[c];c=0;
     fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
         fscanf(fp,"%s",u[c].nombre);
         fscanf(fp,"%s",u[c].password);
@@ -35,7 +47,7 @@ int registerin(){
         fscanf(fp,"%d",&u[c].prizes);
         c++;
     }fclose(fp);
-    //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\n",i, u[i].nombre, i, u[i].password, i, u[i].score);
+    //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\nu[%d].prizes: %d\n\n",i, u[i].nombre, i, u[i].password, i, u[i].score, i , u[i].prizes);
     printf("Nombre de usuario: ");fflush(stdin);gets(n);
     for(int i=0;i<c;i++)if(strcmp(u[i].nombre, n)==0)e=1;
     if(e==1)while(tf<1){
@@ -60,11 +72,20 @@ int registerin(){
 }
 
 int login(char **n, int **s){
-    usuario u[50];
-    int c=0, e=0, d=0, opc, tf=0, success=0, registered=0;//c=count, e=exists, d=denied, s=score
+    usuario temp;
+    int c=0, e=0, d=0, opc, tf=0, success=0, registered=0;//c=count, e=exists, d=denied
     char pw[25];//n=nombre, pw=password
     FILE *fp=fopen("batallanaval.txt","a");fclose(fp);
 
+    fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
+        fscanf(fp,"%s",temp.nombre);
+        fscanf(fp,"%s",temp.password);
+        fscanf(fp,"%d",&temp.score);
+        fscanf(fp,"%d",&temp.prizes);
+        c++;
+    }fclose(fp);
+
+    usuario u[c];c=0;
     fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
         fscanf(fp,"%s",u[c].nombre);
         fscanf(fp,"%s",u[c].password);
@@ -72,7 +93,7 @@ int login(char **n, int **s){
         fscanf(fp,"%d",&u[c].prizes);
         c++;
     }fclose(fp);
-    //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\nu[%d].prizes: %d\n",i, u[i].nombre, i, u[i].password, i, u[i].score, i , u[i].prizes);
+    //for(int i=0;i<c;i++)printf("U[%d].nombre: %s\nU[%d].pw: %s\nU[%d].score: %d\nu[%d].prizes: %d\n\n",i, u[i].nombre, i, u[i].password, i, u[i].score, i , u[i].prizes);
     printf("Nombre de usuario: ");fflush(stdin);gets(*n);
     for(int i=0;i<c;i++)if(strcmp(u[i].nombre, *n)==0)e=1;
     if(e==0)while(tf<1){
@@ -93,10 +114,19 @@ int login(char **n, int **s){
 }
 
 void update(char **n, int **s){
-    usuario u[50];
-    int c=0;//c=count, s=score
+    usuario temp;
+    int c=0;//c=count
 
     FILE *fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
+        fscanf(fp,"%s",temp.nombre);
+        fscanf(fp,"%s",temp.password);
+        fscanf(fp,"%d",&temp.score);
+        fscanf(fp,"%d",&temp.prizes);
+        c++;
+    }fclose(fp);
+
+    usuario u[c];c=0;
+    fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
         fscanf(fp,"%s",u[c].nombre);
         fscanf(fp,"%s",u[c].password);
         fscanf(fp,"%d",&u[c].score);
@@ -118,6 +148,35 @@ void update(char **n, int **s){
             fprintf(fp,"   %d",u[i].prizes);
         }
     }fclose(fp);
+}
+
+void view(char **n){
+    usuario temp;
+    int c=0;//c=count
+
+    FILE *fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
+        fscanf(fp,"%s",temp.nombre);
+        fscanf(fp,"%s",temp.password);
+        fscanf(fp,"%d",&temp.score);
+        fscanf(fp,"%d",&temp.prizes);
+        c++;
+    }fclose(fp);
+
+    usuario u[c];c=0;
+    fp=fopen("batallanaval.txt","r");while(feof(fp)==NULL){
+        fscanf(fp,"%s",u[c].nombre);
+        fscanf(fp,"%s",u[c].password);
+        fscanf(fp,"%d",&u[c].score);
+        fscanf(fp,"%d",&u[c].prizes);
+        c++;
+    }fclose(fp);
+
+    for(int i=0;i<c;i++)if(strcmp(u[i].nombre, *n)==0){
+        printf("Usuario: %s\n",u[i].nombre);
+        printf("Password: %s\n",u[i].password);
+        printf("Score: %d\n",u[i].score);
+        printf("Premios: %d\n",u[i].prizes);
+    }
 }
 
 void initialize(int ***p, int ***a, int ***f, int **ph, int **pm, int **ah){
@@ -297,31 +356,38 @@ int game(){
     return score;
 }
 
+void loggedin(char **p, int **s){
+    int opc;
+
+    while(opc!=4){
+        printf("1. Jugar\n2. Ver stats\n3. Comprar premios\n4. Salir\n");scanf("%d",&opc);
+        switch(opc){
+            case 1:
+                **s+=game();
+                update(p, s);
+            break;
+            case 2:view(p);break;
+            case 3:break;
+            case 4:break;
+            notvalid
+        }
+    }
+}
+
 void menu(){
-    int opc1, opc2, success=0;
+    int opc, success;
     char *player=(char*)malloc(25*sizeof(char));
     int *score=(int*)malloc(1*sizeof(int));
 
-    while(opc1!=4){
-        printf("1. Register\n2. Login\n3. Ver premios\n4. Salir\n");scanf("%d",&opc1);
-        switch(opc1){
+    while(opc!=4){
+        printf("1. Register\n2. Login\n3. Ver premios\n4. Salir\n");scanf("%d",&opc);
+        switch(opc){
             case 1:success=0;
                 while(success<1)success=registerin();
             break;
             case 2:success=0;
                 while(success==0)success=login(&player, &score);
-                if(success==1){
-                    while(opc2!=4){
-                        printf("1. Jugar\n2. Ver stats\n3. Comprar premios\n4. Salir\n");scanf("%d",&opc2);
-                        switch(opc2){
-                            case 1:*score+=game();update(&player, &score);break;
-                            case 2:break;
-                            case 3:break;
-                            case 4:break;
-                            notvalid
-                        }
-                    }
-                }
+                if(success==1)loggedin(&player, &score);
             break;
             case 3:break;
             default:break;
